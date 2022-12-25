@@ -16,4 +16,4 @@ COPY . .
 
 EXPOSE 5000
 
-CMD ["node", "node . --db 'mongodb+srv://mongodb-khoiyrul:khoiyrulbotz122112211221@cluster0.da5wkgw.mongodb.net/?retryWrites=true&w=majority"]
+CMD ["node", ". --db 'mongodb+srv://mongodb-khoiyrul:khoiyrulbotz122112211221@cluster0.da5wkgw.mongodb.net/?retryWrites=true&w=majority' "]
