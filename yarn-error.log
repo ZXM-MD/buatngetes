@@ -1,5 +1,5 @@
 Arguments: 
-  /data/data/com.termux/files/usr/bin/node /data/data/com.termux/files/usr/share/yarn/bin/yarn.js add qrode-terminal
+  /data/data/com.termux/files/usr/bin/node /data/data/com.termux/files/usr/share/yarn/bin/yarn.js
 
 PATH: 
   /data/data/com.termux/files/usr/bin
@@ -14,21 +14,11 @@ Platform:
   android arm
 
 Trace: 
-  Error: https://registry.yarnpkg.com/qrode-terminal: Not found
-      at params.callback [as _callback] (/data/data/com.termux/files/usr/share/yarn/lib/cli.js:66145:18)
-      at self.callback (/data/data/com.termux/files/usr/share/yarn/lib/cli.js:140890:22)
-      at Request.emit (node:events:513:28)
-      at Request.<anonymous> (/data/data/com.termux/files/usr/share/yarn/lib/cli.js:141862:10)
-      at Request.emit (node:events:513:28)
-      at IncomingMessage.<anonymous> (/data/data/com.termux/files/usr/share/yarn/lib/cli.js:141784:12)
-      at Object.onceWrapper (node:events:627:28)
-      at IncomingMessage.emit (node:events:525:35)
-      at endReadableNT (node:internal/streams/readable:1359:12)
-      at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+  Error: EPERM: operation not permitted, symlink '../../../../pino/bin.js' -> '/storage/emulated/0/RullV10/node_modules/@adiwajshing/baileys/node_modules/.bin/pino'
 
 npm manifest: 
   {
-    "name": "KhoiyrulBotz",
+    "name": "Khoiyrul-Botz",
     "version": "1.0.0",
     "description": "<p align=\"center\"> <img src=\"https://telegra.ph/file/6ab4daac226292a112540.jpg\" alt=\"Rull BOT\" width=\"500\"/>",
     "main": "index.js",
