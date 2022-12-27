@@ -2,7 +2,7 @@ import fetch from 'node-fetch'
 
 //Plugin By Xynoz!!
 let handler = async (m, { conn, usedPrefix }) => {
-  const ultah = new Date('November 4 2022 00:00:01')
+  const ultah = new Date('Agustus 08 2022 00:00:01')
     const sekarat = new Date().getTime() 
     const Kurang = ultah - sekarat
     const ohari = Math.floor( Kurang / (1000 * 60 * 60 * 24));
