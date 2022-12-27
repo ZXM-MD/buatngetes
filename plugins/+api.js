@@ -1567,7 +1567,7 @@ await elaina.sendMessage(from, thumbnail, image, { quoted: mek, caption: ini_txt
 break
 case 'sewabot':
 if (!iselaina) return sendButMessage(from, lang.noregis(pushname), `Klik Button Untuk Verify`, [{buttonId: '.daftar',buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: fgif});
-			reply('http://wa.me/62895410068780?text=Sewa+Bot') 		
+			reply('http://wa.me/6289636371132?text=Assalamualaikum+Bwanh,+Saya+tertarik+dengan+bot+anda+dan+saya+ingin+sewa+bot+yang+anda+buat') 		
 break
 case 'kick':
 			if (!isGroup) return reply(lang.group())

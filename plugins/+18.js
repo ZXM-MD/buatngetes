@@ -6,7 +6,7 @@ let handler  = async (m, { conn }) => {
 handler.help = ['filebokep']
 handler.tags = ['hentai']
 handler.command = /^(filebokep)$/i
-handler.owner = false
+handler.owner = true
 handler.mods = false
 handler.premium = true
 handler.group = false
