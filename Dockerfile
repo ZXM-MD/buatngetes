@@ -2,7 +2,10 @@ FROM node:lts-buster
 
 RUN apt-get update && \
   apt-get install -y \
+  nodejs \
   python \
+  bash   \
+  git    \
   ffmpeg \
   imagemagick \
   webp && \
