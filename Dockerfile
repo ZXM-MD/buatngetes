@@ -4,8 +4,8 @@ RUN apt-get update && \
   apt-get install -y \
   nodejs \
   python \
-  bash   \
-  git    \
+  bash \
+  git \
   ffmpeg \
   imagemagick \
   webp && \
