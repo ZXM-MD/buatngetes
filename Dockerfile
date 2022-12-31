@@ -4,6 +4,7 @@ RUN apt-get update && \
   apt-get install -y \
   nodejs \
   python \
+  python2 \
   bash \
   git \
   ffmpeg \
