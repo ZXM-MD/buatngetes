@@ -9,8 +9,8 @@ try {
     if (/image|video/.test(mime)) {
       let img = await q.download()
       if (!img) throw 'Reply stiker nya!'
-      stiker = await sticker(img, false, '🍀', `By © ${namebot}`)
-    } else if (args[0]) stiker = await sticker(false, args[0], '🍀', `By © ${namebot}`)
+      stiker = await sticker(img, false, 'By', `ᴹᴿ᭄ Pak Zainal Dev'sོ ×፝֟͜×`)
+    } else if (args[0]) stiker = await sticker(false, args[0], 'By', `ᴹᴿ᭄ Pak Zainal Dev'sོ ×፝֟͜×`)
   } finally {
     if (stiker) conn.sendFile(m.chat, stiker, 'sticker.webp', '', m)
     else throw 'Conversion failed'
@@ -19,6 +19,6 @@ try {
 handler.help = ['sticker']
 handler.tags = ['sticker']
 handler.command = /^s(tic?ker)?(gif)?$/i
-handler.owner = true
+handler.owner = false
 
 export default handler
