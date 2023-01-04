@@ -9,36 +9,36 @@ let handler = async function (m, { text, usedPrefix, command }) {
 	let namae = conn.getName(m.sender)
 	const sections = [
 	{
-	title: "📆Pilih Umur Kamu Disini !",
+	title: "- - - - 『 ▮ 📆Pilih Umur Kamu Disini ! 」 』 - - - -",
 	rows: [
-	    {title: "📛Random Tahun", rowId: '.daftar ' + namae + '.' + pickRandom(['30','20','18','16','13',])}
+	    {title: "📛 )ഒ Random Tahun", rowId: '.daftar ' + namae + '.' + pickRandom (['30','20','18','16','13']), description: "✧ Kira² beliau ini mendapatkan umur berapa ya 💀"},
 	]
     },
     {
-	title: "🎲T U A",
+	title: "- - - - 『 ▮ 🎲 T U A 」 』 - - - -",
 	rows: [
-	    {title: "😝Kuliah", rowId: '.daftar ' + namae + '.20 '},
-	    {title: "😑Pengangguran", rowId: '.daftar ' + namae + '.18 '},
-	    {title: "😥Om Om", rowId: '.daftar ' + namae + '.30 '},
+	    {title: "😝 〉ɞ 『 Kuliah 』", rowId: '.daftar ' + namae + '.20 ', description: '✧ Wah udah kerja nih 😅'},
+	    {title: "😑  〉ɞ 『 Pengangguran 』", rowId: '.daftar ' + namae + '.18 ', description: '✧ Wah ada beban keluarga nih 🙃'},
+	    {title: "😥  〉ɞ 『 Om Om 』", rowId: '.daftar ' + namae + '.30 ', description: '✧ Om halalin aku donh:v 🤭'},
 	]
     },
     {
-	title: "🥊B O C A H",
+	title: "- - - - 『 ▮ 🥊 B O C A H 」 』 - - - -",
 	rows: [
-	    {title: "🗿Sma", rowId: '.daftar ' + namae + '.16 '},
-	    {title: "😱Smk", rowId: '.daftar ' + namae + '.16 '},
-	    {title: "🤡Esempeh", rowId: '.daftar ' + namae + '.13 '},
-	{title: "🤪Emtees", rowId: '.daftar ' + namae + '.13 '},
-	{title: "🤓Esdeh", rowId: '.daftar ' + namae + '.5 '},
-	{title: "😜Teka", rowId: '.daftar ' + namae + '.4 '},
-	{title: "😐Paud", rowId: '.daftar ' + namae + '.4 '},
+	    {title: "⫹🗿 › 𐐪-〚 SMA 〛-𐑂", rowId: '.daftar ' + namae + '.16 ', description: '╰► Saya masih SMA kak 🙄'},
+	    {title: "⫹😱 › 𐐪-〚 SMK 〛-𐑂", rowId: '.daftar ' + namae + '.16 ', description: '╰► Saya masih SMK kak 🙃'},
+	    {title: "⫹🤡 › 𐐪-〚 SMP 〛-𐑂", rowId: '.daftar ' + namae + '.13 ', description: '╰► Saya masih SMP kak 🥶'},
+	{title: "⫹🤪 › 𐐪-〚 MTS 〛-𐑂", rowId: '.daftar ' + namae + '.13 ', description: '╰► Saya masih MTS kak 🤫'},
+	{title: "⫹🤓 › 𐐪-〚 SD 〛-𐑂", rowId: '.daftar ' + namae + '.5 ', description: '╰► Saya masih SD kak 😌'},
+	{title: "⫹😜 › 𐐪-〚 TK 〛-𐑂", rowId: '.daftar ' + namae + '.4 ', description: '╰► Saya masih TK kak 🤨'},
+	{title: "⫹😐 › 𐐪-〚 PAUD 〛-𐑂", rowId: '.daftar ' + namae + '.4 ', description: '╰► Saya Masih PAUD kak 😔'},
 	]
 	},
 ]
 
 const listMessage = {
   text: `│›Silahkan pilih umur kamu dibawah ini agar bisa terverifikasi data bot kami`,
-  footer: `┗ *ʏᴏᴜʀ ɴᴀᴍᴇ:* ${conn.getName(m.sender)}\n<❔>  BOT PUBLIC\nSUBSCRIBE YT PAK ZAINAL DEV'S\nhttps://youtube.com/@hagozox`,
+  footer: `┗ *ʏᴏᴜʀ ɴᴀᴍᴇ:* ${conn.getName(m.sender)}\n<❔>  BOT PUBLIC\nSubscribe YT PAK ZAINAL DEV'S\nhttps://youtube.com/@hagozox`,
   title: "▢━━━━「 Registrasi 」━━━━▢",
   buttonText: "ഒ Registrasi ഒ",
   sections
