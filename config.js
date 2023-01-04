@@ -45,7 +45,7 @@ global.psaweria = '-'
 
 /*============== NOMOR ==============*/
 global.nomorbot = '6285904284057'
-global.nomorown = '6285904284057' //ganti nomor owner
+global.nomorown = '6289636371132' //ganti nomor owner
 global.namebot = 'Khoiyrul Botzོ'
 global.nameown = "ᴹᴿ᭄ Pak Zainal Dev'sོ ×፝֟͜×"
 global.developer = "Zainal"
@@ -112,7 +112,7 @@ global.titlebot = `𝙺𝙷𝙾𝙸𝚈𝚁𝚄𝙻 𝙱𝙾𝚃𝚉 | 𝙱𝚈 
 global.author = "ᴹᴿ᭄ Pak Zainal Dev'sོ ×፝֟͜×"
 global.packname = 'Khoiyrul Botzོ'
 global.danied = '✘ 𝗘𝗥𝗢𝗥 𝟰𝟬𝟰'
-global.ultahowner = 'Agustus 8 2023'
+global.ultahowner = 'August 08 2023'
 
 
 /*============== LOGO ==============*/
@@ -379,8 +379,8 @@ global.hwaifu = ['https://i.pinimg.com/originals/ed/34/f8/ed34f88af161e6278993e1
 'https://i.pinimg.com/originals/fd/21/41/fd21419275236bb153de3c8dcbbf3bf9.jpg',
 'https://i.pinimg.com/originals/80/4f/1a/804f1a05f9996c96a2d492b4854b7fd5.jpg']
 /*============== STICKER WM ==============*/
-global.stickpack = "By ᴹᴿ᭄ Pak Zainal Dev'sོ ×፝֟͜×"
-global.stickauth = `Khoiyrul Botzོ`
+global.stickpack = "By"
+global.stickauth = `ᴹᴿ᭄ Pak Zainal Dev'sོ ×፝֟͜×`
 
 global.multiplier = 38 // The higher, The harder levelup
 
