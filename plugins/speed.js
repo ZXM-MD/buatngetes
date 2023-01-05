@@ -1,105 +1,187 @@
-import { createHash } from 'crypto'
+import { cpus as _cpus, totalmem, freemem } from 'os'
+import util from 'util'
+import os from 'os'
+import fs from 'fs'
 import fetch from 'node-fetch'
-let Reg = /\|?(.*)([.|] *?)([0-9]*)$/i
+import osu from 'node-os-utils'
+import { performance } from 'perf_hooks'
+import { sizeFormatter } from 'human-readable'
+let format = sizeFormatter({
+  std: 'JEDEC', // 'SI' (default) | 'IEC' | 'JEDEC'
+  decimalPlaces: 2,
+  keepTrailingZeroes: false,
+  render: (literal, symbol) => `${literal} ${symbol}B`,
+})
+let handler = async (m, { conn, isRowner}) => {
+	let _muptime
+    if (process.send) {
+      process.send('uptime')
+      _muptime = await new Promise(resolve => {
+        process.once('message', resolve)
+        setTimeout(resolve, 1000)
+      }) * 1000
+    }
+    let muptime = clockString(_muptime)
+  const chats = Object.entries(conn.chats).filter(([id, data]) => id && data.isChats)
+  const groupsIn = chats.filter(([id]) => id.endsWith('@g.us')) //groups.filter(v => !v.read_only)
+  const used = process.memoryUsage()
+  const cpus = _cpus().map(cpu => {
+    cpu.total = Object.keys(cpu.times).reduce((last, type) => last + cpu.times[type], 0)
+    return cpu
+  })
+  const cpu = cpus.reduce((last, cpu, _, { length }) => {
+    last.total += cpu.total
+    last.speed += cpu.speed / length
+    last.times.user += cpu.times.user
+    last.times.nice += cpu.times.nice
+    last.times.sys += cpu.times.sys
+    last.times.idle += cpu.times.idle
+    last.times.irq += cpu.times.irq
+    return last
+  }, {
+    speed: 0,
+    total: 0,
+    times: {
+      user: 0,
+      nice: 0,
+      sys: 0,
+      idle: 0,
+      irq: 0
+    }
+  })
+  
+  let NotDetect = 'Not Detect'
+        let cpux = osu.cpu
+        let cpuCore = cpux.count()
+        let drive = osu.drive
+        let mem = osu.mem
+        let netstat = osu.netstat
+        let HostN = osu.os.hostname()
+        let OS = osu.os.platform()
+        let ipx = osu.os.ip()
+        let cpuModel = cpux.model()
+        let cpuPer
+        let p1 = cpux.usage().then(cpuPercentage => {
+            cpuPer = cpuPercentage
+        }).catch(() => {
+            cpuPer = NotDetect
+        })
+        let driveTotal, driveUsed, drivePer
+        let p2 = drive.info().then(info => {
+                driveTotal = (info.totalGb + ' GB'),
+                driveUsed = info.usedGb,
+                drivePer = (info.usedPercentage + '%')
+        }).catch(() => {
+                driveTotal = NotDetect,
+                driveUsed = NotDetect,
+                drivePer = NotDetect
+        })
+        let ramTotal, ramUsed
+        let p3 = mem.info().then(info => {
+                ramTotal = info.totalMemMb,
+                ramUsed = info.usedMemMb
+        }).catch(() => {
+                ramTotal = NotDetect,
+                ramUsed = NotDetect
+        })
+        let netsIn, netsOut
+        let p4 = netstat.inOut().then(info => {
+                netsIn = (info.total.inputMb + ' MB'),       
+                netsOut = (info.total.outputMb + ' MB')
+        }).catch(() => {
+                netsIn = NotDetect,
+                netsOut = NotDetect
+        })
+        await Promise.all([p1, p2, p3, p4])        
+        let _ramTotal = (ramTotal + ' MB')
+        let cek = await(await fetch("https://api.myip.com")).json().catch(_ => 'error')
+        
+        let ip = (cek == 'error' ? 'ɴᴏᴛ ᴅᴇᴛᴇᴄᴛ' : cek.ip)
+        let cr = (cek == 'error' ? 'ɴᴏᴛ ᴅᴇᴛᴇᴄᴛ' : cek.country)
+        let cc = (cek == 'error' ? 'ɴᴏᴛ ᴅᴇᴛᴇᴄᴛ' : cek.cc)
+        
+        let d = new Date(new Date + 3600000)
+    let locale = 'id'
+    let weeks = d.toLocaleDateString(locale, { weekday: 'long' })
+    let dates = d.toLocaleDateString(locale, {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    })
+        let times = d.toLocaleTimeString(locale, {
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric'
+    })
 
-let handler = async function (m, { text, usedPrefix, command }) {
-	function pickRandom(list) {
-  return list[Math.floor(Math.random() * list.length)]
+  let old = performance.now()
+  await m.reply(`${htjava} *ᴛ ᴇ s ᴛ ɪ ɴ ɢ . . .*`)
+  let neww = performance.now()
+  let session = fs.statSync(authFile)
+  let speed = neww - old
+  let runtt = `- *s ᴘ ᴇ ᴇ ᴅ* -
+${Math.round(neww - old)} ms
+${speed} ms
+
+- *ʀ ᴜ ɴ ᴛ ɪ ᴍ ᴇ* -
+${muptime}
+${readMore}
+- *ᴄ ʜ ᴀ ᴛ s* -
+• *${groupsIn.length}* Group Chats
+• *${groupsIn.length}* Groups Joined
+• *${groupsIn.length - groupsIn.length}* Groups Left
+• *${chats.length - groupsIn.length}* Personal Chats
+• *${chats.length}* Total Chats
+
+
+- *s ᴇ ʀ ᴠ ᴇ ʀ* -
+*🛑 Rᴀᴍ:* ${ramUsed} / ${_ramTotal}(${/[0-9.+/]/g.test(ramUsed) &&  /[0-9.+/]/g.test(ramTotal) ? Math.round(100 * (ramUsed / ramTotal)) + '%' : NotDetect})
+*🔵 FʀᴇᴇRᴀᴍ:* ${format(freemem())}
+
+*🔭 ᴘʟᴀᴛғᴏʀᴍ:* ${os.platform()}
+*🧿 sᴇʀᴠᴇʀ:* ${os.hostname()}
+*💻 ᴏs:* ${OS}
+*📍 ɪᴘ:* ${ip}
+*🌎 ᴄᴏᴜɴᴛʀʏ:* ${cr}
+*💬 ᴄᴏᴜɴᴛʀʏ ᴄᴏᴅᴇ:* ${cc}
+*📡 ᴄᴘᴜ ᴍᴏᴅᴇʟ:* ${cpuModel}
+*🔮 ᴄᴘᴜ ᴄᴏʀᴇ:* ${cpuCore} Core
+*🎛️ ᴄᴘᴜ:* ${cpuPer}%
+*⏰ ᴛɪᴍᴇ sᴇʀᴠᴇʀ:* ${times}
+*📑 sᴇssɪᴏɴ sɪᴢᴇ :* ${format(session.size)}
+
+${readMore}
+*ɴᴏᴅᴇJS ᴍᴇᴍᴏʀʏ ᴜsᴀɢᴇ*
+${'```' + Object.keys(used).map((key, _, arr) => `${key.padEnd(Math.max(...arr.map(v => v.length)), ' ')}: ${format(used[key])}`).join('\n') + '```'}
+
+${cpus[0] ? `_Total CPU Usage_
+${cpus[0].model.trim()} (${cpu.speed} MHZ)\n${Object.keys(cpu.times).map(type => `- *${(type + '*').padEnd(6)}: ${(100 * cpu.times[type] / cpu.total).toFixed(2)}%`).join('\n')}
+
+_CPU Core(s) Usage (${cpus.length} Core CPU)_
+${cpus.map((cpu, i) => `${i + 1}. ${cpu.model.trim()} (${cpu.speed} MHZ)\n${Object.keys(cpu.times).map(type => `- *${(type + '*').padEnd(6)}: ${(100 * cpu.times[type] / cpu.total).toFixed(2)}%`).join('\n')}`).join('\n\n')}` : ''}` 
+await conn.relayMessage(m.chat, { requestPaymentMessage: {
+  noteMessage: { extendedTextMessage: { text: runtt,
+  currencyCodeIso4217: 'USD',
+  requestFrom: '0@s.whatsapp.net',
+  expiryTimestamp: 8600,
+  amount: 10000,
+  background: thumb
+}}}}, {})
+
 }
-	let namae = conn.getName(m.sender)
-	const sections = [
-	{
-	title: "- - - - 『 ▮ 📆Pilih Umur Kamu Disini ! 」 』 - - - -",
-	rows: [
-	    {title: "📛 )ഒ Random Tahun", rowId: '.daftar ' + namae + '.' + pickRandom (['30','20','18','16','13']), description: "✧ Kira² beliau ini mendapatkan umur berapa ya 💀"},
-	]
-    },
-    {
-	title: "- - - - 『 ▮ 🎲 T U A 」 』 - - - -",
-	rows: [
-	    {title: "😝 〉ɞ 『 Kuliah 』", rowId: '.daftar ' + namae + '.20 ', description: '✧ Wah udah kerja nih 😅'},
-	    {title: "😑  〉ɞ 『 Pengangguran 』", rowId: '.daftar ' + namae + '.18 ', description: '✧ Wah ada beban keluarga nih 🙃'},
-	    {title: "😥  〉ɞ 『 Om Om 』", rowId: '.daftar ' + namae + '.30 ', description: '✧ Om halalin aku donh:v 🤭'},
-	]
-    },
-    {
-	title: "- - - - 『 ▮ 🥊 B O C A H 」 』 - - - -",
-	rows: [
-	    {title: "⫹🗿 › 𐐪-〚 SMA 〛-𐑂", rowId: '.daftar ' + namae + '.16 ', description: '╰► Saya masih SMA kak 🙄'},
-	    {title: "⫹😱 › 𐐪-〚 SMK 〛-𐑂", rowId: '.daftar ' + namae + '.16 ', description: '╰► Saya masih SMK kak 🙃'},
-	    {title: "⫹🤡 › 𐐪-〚 SMP 〛-𐑂", rowId: '.daftar ' + namae + '.13 ', description: '╰► Saya masih SMP kak 🥶'},
-	{title: "⫹🤪 › 𐐪-〚 MTS 〛-𐑂", rowId: '.daftar ' + namae + '.13 ', description: '╰► Saya masih MTS kak 🤫'},
-	{title: "⫹🤓 › 𐐪-〚 SD 〛-𐑂", rowId: '.daftar ' + namae + '.5 ', description: '╰► Saya masih SD kak 😌'},
-	{title: "⫹😜 › 𐐪-〚 TK 〛-𐑂", rowId: '.daftar ' + namae + '.4 ', description: '╰► Saya masih TK kak 🤨'},
-	{title: "⫹😐 › 𐐪-〚 PAUD 〛-𐑂", rowId: '.daftar ' + namae + '.4 ', description: '╰► Saya Masih PAUD kak 😔'},
-	]
-	},
-]
+handler.help = ['ping', 'speed']
+handler.tags = ['info', 'tools']
 
-const listMessage = {
-  text: `│›Silahkan pilih umur kamu dibawah ini agar bisa terverifikasi data bot kami`,
-  footer: `┗ *ʏᴏᴜʀ ɴᴀᴍᴇ:* ${conn.getName(m.sender)}\n<❔>  BOT PUBLIC\nSubscribe YT PAK ZAINAL DEV'S\nhttps://youtube.com/@hagozox`,
-  title: "▢━━━━「 Registrasi 」━━━━▢",
-  buttonText: "ഒ Registrasi ഒ",
-  sections
-}
-
-  let user = global.db.data.users[m.sender]
-  if (user.registered === true) throw `📮Kamu Sudah ter daftar di database, Apa kamu ingin mendaftar ulang? *${usedPrefix}unreg <SERIAL NUMBER>*`
-  if (!Reg.test(text)) return conn.sendMessage(m.chat, listMessage, { quoted: m })
-  let [_, name, splitter, age] = text.match(Reg)
-  if (!name) throw 'Nama tidak boleh kosong (Alphanumeric)'
-  if (!age) throw 'Umur tidak boleh kosong (Angka)'
-  age = parseInt(age)
-  if (age > 30) throw 'WOI TUA (。-`ω´-)'
-  if (age < 5) throw 'Halah dasar bocil'
-  user.name = name.trim()
-  user.age = age
-  user.regTime = + new Date
-  user.registered = true
-  let sn = createHash('md5').update(m.sender).digest('hex')
-  let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : m.fromMe ? conn.user.jid : m.sender
-  let cap = `
-  ━━━━ 「 *Registrasi Berhasil!* 」━━━
-  .
-╭━━「 *ᴜsᴇʀs* 」
-│▸ *sᴛᴀᴛᴜs:* ☑️ sᴜᴄᴄᴇssғᴜʟ
-│▸ *ɴᴀᴍᴇ:* ${name}
-│▸ *ᴀɢᴇ:* ${age} ʏᴇᴀʀs
-│▸ *sɴ:* ${sn}
-╰═┅═━––––––๑
-
-ꜱᴜʙꜱᴄʀɪʙᴇ ʏᴛ : ᴘᴀᴋ ᴢᴀɪɴᴀʟ ᴅᴇᴠ'ꜱ
-`
-  let buttonMessage= {
-'document':{'url':'https://youtube.com/@hagozox'},
-'mimetype':global.ddocx,
-'fileName':'▢━━━━「 Registrasi 」━━━━▢',
-'fileLength':fsizedoc,
-'pageCount':fpagedoc,
-'contextInfo':{
-'forwardingScore':555,
-'isForwarded':true,
-'externalAdReply':{
-'mediaUrl':'https://youtube.com/@hagozox',
-'mediaType':2,
-'previewType':'pdf',
-'title':global.titlebot,
-'body':global.titlebot,
-'thumbnail':await(await fetch('https://telegra.ph/file/a5eb5169ab1330a537e0b.jpg')).buffer(),
-'sourceUrl':'https://youtube.com/@hagozox'}},
-'caption':cap,
-'footer':botdate,
-'buttons':[
-{'buttonId':'.menu','buttonText':{'displayText':'⚡ Menu'},'type':1},
-{'buttonId':'.salken','buttonText':{'displayText':'👋 Hallo Bot'},'type':1}
-],
-'headerType':6}
-    await conn.sendMessage(m.chat,buttonMessage, { quoted:m})
-}
-handler.help = ['daftar', 'register'].map(v => v + ' <nama>.<umur>')
-handler.tags = ['xp']
-
-handler.command = /^(daftar|verify|reg(ister)?)$/i
-
+handler.command = /^(ping|speed|info)$/i
 export default handler
+
+const more = String.fromCharCode(8206)
+const readMore = more.repeat(4001)
+
+function clockString(ms) {
+  let d = isNaN(ms) ? '--' : Math.floor(ms / 86400000)
+  let h = isNaN(ms) ? '--' : Math.floor(ms / 3600000) % 24
+  let m = isNaN(ms) ? '--' : Math.floor(ms / 60000) % 60
+  let s = isNaN(ms) ? '--' : Math.floor(ms / 1000) % 60
+  return [d, ' *Days ☀️*\n ', h, ' *Hours 🕐*\n ', m, ' *Minute ⏰*\n ', s, ' *Second ⏱️* '].map(v => v.toString().padStart(2, 0)).join('')
+}
